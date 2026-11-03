@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{DOCUMENT_TITLE}}</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: #222222;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 1.28;
+        background: #ffffff;
+      }
+
+      .page {
+        position: relative;
+        width: 210mm;
+        height: 297mm;
+        padding: 8mm 10mm 18mm;
+        overflow: hidden;
+        background: #ffffff;
+        page-break-after: always;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+
+      .sample-header {
+        display: grid;
+        grid-template-columns: 67mm 37mm 1fr;
+        gap: 5mm;
+        align-items: center;
+        min-height: 47mm;
+      }
+
+      .logo-wrap {
+        position: relative;
+        padding-left: 2mm;
+      }
+
+      .brand-logo {
+        display: block;
+        width: 64mm;
+        height: 31mm;
+        object-fit: contain;
+        background: #f4c52d;
+      }
+
+      .tm {
+        position: absolute;
+        top: -2mm;
+        right: -1mm;
+        color: #000000;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .stamp-image {
+        display: block;
+        width: 35mm;
+        height: 35mm;
+        margin: 0 auto;
+        object-fit: contain;
+      }
+
+      .company-block {
+        text-align: right;
+      }
+
+      .company-block h1 {
+        margin: 0 0 4px;
+        color: #111111;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0;
+        white-space: nowrap;
+      }
+
+      .company-block .cin {
+        margin: 0 0 6px;
+        font-size: 14px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .company-block p {
+        margin: 2px 0;
+        font-size: 13px;
+      }
+
+      .company-block .strong {
+        margin-top: 7px;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .company-block a,
+      .company-block .under {
+        color: #222222;
+        text-decoration: underline;
+      }
+
+      .header-line {
+        margin: 3mm 7mm 5mm;
+        border: 0;
+        border-top: 2px solid #111111;
+      }
+
+      .quote-title {
+        margin: 0 0 7mm;
+        text-align: center;
+        font-size: 25px;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-decoration: underline;
+      }
+
+      .meta {
+        margin-left: 11mm;
+        margin-bottom: 7mm;
+        font-size: 16px;
+      }
+
+      .meta div {
+        margin: 2px 0;
+      }
+
+      .intro {
+        margin: 0 6mm 4mm;
+      }
+
+      .section-title {
+        margin: 5mm 5mm 3mm;
+        color: #f1c40f;
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .section-title.dark {
+        color: #222222;
+      }
+
+      .section-body {
+        margin: 0 7mm;
+      }
+
+      ul.sample-list {
+        margin: 0;
+        padding-left: 6mm;
+      }
+
+      ul.sample-list li {
+        margin: 2px 0;
+      }
+
+      .sample-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        margin: 0 auto 5mm;
+        font-size: 15px;
+      }
+
+      .sample-table th,
+      .sample-table td {
+        border: 1px solid #111111;
+        padding: 4.5mm 2.5mm;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .sample-table th {
+        font-size: 16px;
+        font-weight: 800;
+      }
+
+      .sample-table td.left,
+      .sample-table th.left {
+        text-align: left;
+      }
+
+      .sample-table.compact th,
+      .sample-table.compact td {
+        padding: 3mm 2mm;
+      }
+
+      .sample-table.rate th,
+      .sample-table.rate td {
+        padding: 2.8mm 1.2mm;
+      }
+
+      .sample-table.total th,
+      .sample-table.total td {
+        padding: 2.6mm 1.5mm;
+      }
+
+      .page-one-table {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .note {
+        margin: -4mm 0 3mm;
+        text-align: center;
+        color: #00899a;
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .unlimited-title {
+        margin: 4mm 0 3mm;
+        color: #000000;
+        font-size: 32px;
+        font-weight: 800;
+        line-height: 1;
+        text-align: center;
+      }
+
+      .total-line {
+        width: 86mm;
+        margin: 3mm 3mm 0 auto;
+        padding-bottom: 2mm;
+        border-bottom: 2px solid #111111;
+        text-align: right;
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .all-rates {
+        margin: 3mm 0 0;
+        color: #00899a;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .lump-heading {
+        margin: 10mm 0 14mm 11mm;
+        font-size: 20px;
+        font-weight: 800;
+        font-style: italic;
+      }
+
+      .work-copy {
+        margin: 0 0 0 0;
+        max-width: none;
+        font-size: 20px;
+      }
+
+      .work-copy p {
+        margin: 0 0 11mm;
+      }
+
+      .lump-cost {
+        margin: 14mm 0 4mm;
+        color: #000000;
+        font-size: 38px;
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+
+      .lump-cost-amount {
+        color: #f1c40f;
+        font-weight: 800;
+      }
+
+      .lump-note {
+        margin: 4mm 0 24mm;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .risk-note {
+        margin: 0;
+        color: #00899a;
+        font-size: 17px;
+        font-weight: 800;
+      }
+
+      .regards {
+        margin: 24mm 0 0 12mm;
+        color: #00899a;
+        font-size: 22px;
+        line-height: 1.4;
+      }
+
+      .regards strong {
+        font-weight: 800;
+      }
+
+      .footer {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .footer-teal {
+        height: 8mm;
+        background: #00899a;
+      }
+
+      .footer-yellow {
+        min-height: 9mm;
+        padding: 2.2mm 8mm 0;
+        color: #111111;
+        background: #f4c52d;
+        font-size: 11px;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .service-page .section-title {
+        color: #f1c40f;
+        font-size: 21px;
+      }
+
+      .service-page .section-body {
+        margin-left: 13mm;
+        margin-right: 5mm;
+        font-size: 20px;
+      }
+
+      .service-page li {
+        margin-bottom: 7mm;
+      }
+
+      .service-page .regards {
+        margin-top: 24mm;
+      }
+
+      .rate-page .sample-header,
+      .lump-page .sample-header,
+      .service-page .sample-header {
+        min-height: 47mm;
+      }
+
+      .lump-quote-page {
+        padding-bottom: 18mm;
+      }
+
+      .lump-quote-page .quote-title {
+        margin-bottom: 7mm;
+        font-size: 24px;
+      }
+
+      .lump-quote-page .meta {
+        margin-bottom: 7mm;
+        font-size: 15px;
+      }
+
+      .lump-quote-page .intro {
+        margin: 0 6mm 5mm;
+        font-size: 14px;
+      }
+
+      .lump-quote-page .section-title {
+        margin: 4mm 5mm 2mm;
+        font-size: 18px;
+      }
+
+      .lump-quote-page .section-body {
+        margin: 0 8mm;
+        font-size: 14px;
+      }
+
+      .lump-quote-page ul.sample-list {
+        padding-left: 5mm;
+      }
+
+      .lump-quote-page ul.sample-list li {
+        margin: 1mm 0;
+      }
+
+      .lump-quote-page .regards {
+        margin: 9mm 0 0 0;
+        font-size: 18px;
+        line-height: 1.25;
+      }
+    </style>
+  </head>
+  <body>
+    {{DOCUMENT_PAGES}}
+  </body>
+</html>
